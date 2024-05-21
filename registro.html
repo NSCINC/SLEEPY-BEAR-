@@ -71,12 +71,10 @@
             display: none;
         }
 
-        /* CSS for cancel button */
         .button-cancel {
             background-color: red;
         }
     </style>
-    <!-- Adicione a biblioteca reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -95,29 +93,27 @@
     </div>
 
     <script>
-        // Função para enviar o código de verificação via WhatsApp usando a API Twilio
-        function sendCode() {
-            // Gere um código de verificação aleatório
-            var verificationCode = Math.floor(1000 + Math.random() * 9000);
+        let verificationCode;
 
-            // Exiba o código gerado no console para teste
+        function sendCode() {
+            verificationCode = Math.floor(1000 + Math.random() * 9000);
             console.log("Verification Code:", verificationCode);
 
-            // Envie o código via WhatsApp usando a API Twilio
             fetch('sendWhatsAppCode.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    code: verificationCode
+                    code: verificationCode,
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value
                 })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     alert("Verification code sent successfully!");
-                    // Exiba a seção de entrada do código de verificação
                     document.getElementById("verificationSection").style.display = "block";
                 } else {
                     alert("Error sending the verification code. Please try again.");
@@ -129,24 +125,25 @@
             });
         }
 
-        // Função para verificar o código inserido pelo usuário
         function verifyCode() {
-            var userCode = document.getElementById("verificationCode").value;
+            const userCode = document.getElementById("verificationCode").value;
 
             if (userCode.trim() === "") {
                 alert("Please enter the verification code.");
-                return false; // Evita a submissão do formulário se o código estiver vazio
+                return false;
             }
 
-            // Se o código estiver correto, redirecione para a página de autenticação de código
-            window.location.href = "auth.html";
+            if (userCode == verificationCode) {
+                alert("Registration successful!");
+                window.location.href = "auth.html";
+            } else {
+                alert("Invalid verification code. Please try again.");
+            }
 
-            return false; // Evita a submissão do formulário
+            return false;
         }
 
-        // Função para cancelar o registro e retornar para o índice
         function cancel() {
-            // Redireciona para o índice
             window.location.href = "index.html";
         }
     </script>
