@@ -3,80 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleepy Bear - Registration</title>
+    <link rel="icon" href="ICON.JPEG" />
+    <title>Sleepy Bear - Contact Registration</title>
     <style>
-        /* Estilos CSS aqui */
+        body {
+            background-color: rgb(19, 17, 17);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .form-container {
+            text-align: center;
+            color: white;
+            background-color: #292929;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            width: 300px;
+        }
+        .input-field {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
+            font-size: 16px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            color: white;
+            background-color: #1db954;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #1ed760;
+        }
     </style>
-    <!-- Adicione a biblioteca reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <div class="register-container">
-        <h1>Registration - Sleepy Bear</h1>
-        <form id="registerForm" onsubmit="return verifyCode()">
-            <!-- Campos do formulário aqui -->
-            <!-- Adicione o campo do CAPTCHA -->
-            <div class="g-recaptcha" data-sitekey="SEU_SITE_KEY"></div>
+    <div class="form-container">
+        <h1 id="form-title">Contact Registration</h1>
+        <form id="contactForm">
+            <div id="contactInputs">
+                <!-- Initially, there are no input fields -->
+            </div>
+            <button type="button" class="button" onclick="addContactFields()">Add Contacts</button>
+            <button type="submit" class="button">Save</button>
         </form>
     </div>
 
     <script>
-        // Função para enviar o código de verificação via WhatsApp usando a API Twilio
-        function sendCode() {
-            // Gere um código de verificação aleatório
-            var verificationCode = Math.floor(1000 + Math.random() * 9000);
-            var phoneNumber = document.getElementById("phone").value;
+        let contactCounter = 0;
 
-            // Exiba o código gerado no console para teste
-            console.log("Verification Code:", verificationCode);
-
-            // Envie o código via WhatsApp usando a API Twilio
-            fetch('sendWhatsAppCode.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    phone: phoneNumber,
-                    code: verificationCode
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Verification code sent successfully!");
-                    // Exiba a seção de entrada do código de verificação
-                    document.getElementById("verificationSection").style.display = "block";
-                } else {
-                    alert("Error sending the verification code. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error sending the verification code:", error);
-                alert("Error sending the verification code. Please try again.");
-            });
-        }
-
-        // Função para verificar o código inserido pelo usuário
-        function verifyCode() {
-            var userCode = document.getElementById("verificationCode").value;
-
-            if (userCode.trim() === "") {
-                alert("Please enter the verification code.");
-                return false; // Evita a submissão do formulário se o código estiver vazio
+        function addContactFields() {
+            const contactInputs = document.getElementById('contactInputs');
+            for (let i = 0; i < 3; i++) {
+                contactCounter++;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `contact${contactCounter}`;
+                input.className = 'input-field';
+                input.placeholder = `Contact Name ${contactCounter}`;
+                input.required = true;
+                contactInputs.appendChild(input);
             }
-
-            // Se o código estiver correto, redirecione para a página de autenticação de código
-            window.location.href = "auth.html";
-
-            return false; // Evita a submissão do formulário
         }
 
-        // Função para cancelar o registro
-        function cancel() {
-            document.getElementById("registerForm").reset();
-            document.getElementById("verificationSection").style.display = "none";
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const formTitle = document.getElementById('form-title');
+            formTitle.textContent = `Contact Registration - ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Simulating contact saving
+                alert('Contacts saved successfully!');
+                window.location.href = 'buttons.html';
+            });
+        });
     </script>
 </body>
 </html>
