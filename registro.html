@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="ICON.JPEG" />
-    <itle>Sleepy Bear - Registration</title>
+    <title>Sleepy Bear - Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,6 +85,7 @@
     <div class="register-container">
         <h1>Registration - Sleepy Bear</h1>
         <form id="registerForm" onsubmit="return false;">
+            <input type="text" id="username" class="input-field" placeholder="Username" required> <!-- Alterado para campo de nome de usuário -->
             <input type="email" id="email" class="input-field" placeholder="Email" required>
             <input type="password" id="password" class="input-field" placeholder="Password" required>
             <button type="button" class="button" onclick="register()">Register</button>
