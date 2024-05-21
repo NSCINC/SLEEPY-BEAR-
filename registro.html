@@ -1,134 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleepy Bear - Registro</title>
+    <title>Sleepy Bear - Registration</title>
     <style>
         body {
-            background-color: rgb(19, 17, 17);
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
+
         .register-container {
-            text-align: center;
-            color: white;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
+        h1 {
+            margin-top: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .input-field {
+            width: 300px;
             padding: 10px;
             margin: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 300px;
-            font-size: 16px;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 16px;
             border: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #444;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .button {
+            width: 300px;
+            padding: 15px;
             margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
             outline: none;
             transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            background-color: #5cb85c; /* verde */
             color: white;
+            background-color: #1db954;
+            font-weight: bold;
+            text-transform: uppercase;
         }
+
         .button:hover {
-            background-color: #3c763d;
+            background-color: #1ed760;
         }
+
+        #verificationSection {
+            display: none;
+        }
+
         .button-cancel {
-            background-color: #f01717; /* vermelho */
+            background-color: red;
         }
+
         .button-cancel:hover {
-            background-color: #d9534f;
+            background-color: darkred;
         }
     </style>
 </head>
 <body>
     <div class="register-container">
-        <h1>Registro - Sleepy Bear</h1>
-        <form id="registerForm" onsubmit="return verifyCode()">
-            <input type="text" id="username" class="input-field" placeholder="Nome de usuário" required>
-            <br>
-            <input type="email" id="email" class="input-field" placeholder="E-mail" required>
-            <br>
-            <input type="password" id="password" class="input-field" placeholder="Senha" required>
-            <br>
-            <input type="tel" id="phone" class="input-field" placeholder="Número de telefone" pattern="[0-9]{10,14}" title="Por favor, insira um número de telefone válido (entre 10 e 14 dígitos)." required>
-            <br>
-            <button type="button" class="button" onclick="sendCode()">Enviar Código</button>
-            <div id="verificationSection" style="display: none;">
-                <input type="text" id="verificationCode" class="input-field" placeholder="Código de Verificação" required>
-                <br>
-                <button type="submit" class="button">Registrar</button>
-            </div>
-            <button type="button" class="button button-cancel" onclick="cancel()">Cancelar</button>
+        <h1>Registration - Sleepy Bear</h1>
+        <form id="registerForm" onsubmit="return false;">
+            <input type="email" id="email" class="input-field" placeholder="Email" required>
+            <input type="password" id="password" class="input-field" placeholder="Password" required>
+            <button type="button" class="button" onclick="register()">Register</button>
+            <button type="button" class="button button-cancel" onclick="cancel()">Cancel</button>
         </form>
     </div>
 
     <script>
-        // Função para enviar o código de verificação via WhatsApp usando a API do Twilio
-        function sendCode() {
-            // Geração de um código de verificação aleatório
-            var verificationCode = Math.floor(1000 + Math.random() * 9000);
-            var phoneNumber = document.getElementById("phone").value;
-
-            // Exibição do código gerado no console para teste
-            console.log("Código de Verificação:", verificationCode);
-
-            // Enviar o código via WhatsApp usando a API do Twilio
-            fetch('sendWhatsAppCode.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    phone: phoneNumber,
-                    code: verificationCode
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Código de verificação enviado com sucesso!");
-                    // Exibição da seção de inserção do código de verificação
-                    document.getElementById("verificationSection").style.display = "block";
-                } else {
-                    alert("Erro ao enviar o código de verificação. Por favor, tente novamente.");
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao enviar o código de verificação:", error);
-                alert("Erro ao enviar o código de verificação. Por favor, tente novamente.");
-            });
+        function register() {
+            // Adicione aqui a lógica para enviar os dados de registro para o servidor
+            alert("Registration feature is disabled in this demo.");
         }
 
-        // Função para verificar o código inserido pelo usuário
-        function verifyCode() {
-            var userCode = document.getElementById("verificationCode").value;
-
-            if (userCode.trim() === "") {
-                alert("Por favor, insira o código de verificação.");
-                return false; // Impede o envio do formulário se o código estiver vazio
-            }
-
-            // Se o código estiver correto, redirecione para a página de autenticação do código
-            window.location.href = "auth.html";
-
-            return false; // Impede o envio do formulário
-        }
-
-        // Função para cancelar o registro
         function cancel() {
-            document.getElementById("registerForm").reset();
-            document.getElementById("verificationSection").style.display = "none";
+            // Adicione aqui a lógica para redirecionar ou limpar o formulário, se necessário
+            alert("Cancel feature is disabled in this demo.");
         }
     </script>
 </body>
