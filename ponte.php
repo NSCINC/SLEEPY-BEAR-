@@ -8,7 +8,7 @@ if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true) {
     exit; // Termina o script para garantir que o redirecionamento seja executado
 } else {
     // Se não estiver autenticado, redireciona de volta para o arquivo de autenticação
-    header("Location: authentication.html");
+    header("Location: auth.html ");
     exit; // Termina o script para garantir que o redirecionamento seja executado
 }
 ?>
