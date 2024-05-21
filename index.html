@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ICON.JPEG" />
+    <title>Sleepy Bear - Login</title>
+    <style>
+        body {
+            background-color: #1a1a1a; /* Alterado o background color */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            text-align: center;
+            background-color: #292929;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            width: 90%;
+            max-width: 400px;
+        }
+        .input-field {
+            padding: 8px; /* Ajuste para os placeholders menores */
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            font-size: 16px;
+            text-align: center;
+        }
+        .input-field::placeholder {
+            font-size: 12px; /* Diminuir tamanho do placeholder */
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            color: white;
+            background-color: #1db954;
+            font-weight: bold;
+            width: 45%;
+        }
+        .button:hover {
+            background-color: #1ed760;
+        }
+        .app-title {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            text-align: left;
+        }
+        .form-group label {
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .logo {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .google-login-button {
+            margin-top: 20px;
+            display: inline-block;
+        }
+        /* Remover texto do botão Google Sign-In */
+        .google-login-button .abcRioButtonContents:before {
+            display: none;
+        }
+        /* Adicionar novo texto ao botão Google Sign-In */
+        .google-login-button .abcRioButtonContents {
+            font-size: 16px;
+            padding-left: 8px; /* Espaçamento para o ícone do Google */
+        }
+        .google-button-text {
+            font-size: 16px;
+            padding-left: 8px; /* Espaçamento para o ícone do Google */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        @media screen and (max-width: 600px) {
+            .login-container {
+                width: 95%;
+            }
+        }
+    </style>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+</head>
+<body>
+    <div class="login-container">
+        <img src="logo.png" alt="Logo Sleepy Bear" class="logo">
+        <h1 class="app-title">Sleepy Bear - Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username"></label>
+                <input type="text" id="username" class="input-field" placeholder="Username or Email"> <!-- Ajuste de placeholder -->
+            </div>
+            <div class="form-group">
+                <label for="password"></label>
+                <input type="password" id="password" class="input-field" placeholder="Password"> <!-- Ajuste de placeholder -->
+            </div>
+            <button type="button" class="button" onclick="login()">Login</button>
+            <button type="button" class="button" onclick="window.location.href='registro.html'">Register</button>
+        </form>
+        
+        <!-- Google Sign-In Button -->
+        <div class="g-signin2 google-login-button" data-onsuccess="onSignIn" data-theme="dark">
+            <span class="google-button-text">Sign in </span>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if (username === "your_username" && password === "your_password") {
+                window.location.href = "botoes.html";
+            } else {
+                alert("Incorrect username or password. Please try again.");
+            }
+        }
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+
+            window.location.href = 'botoes.html';
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+</body>
+</html>

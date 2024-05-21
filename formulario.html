@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ICON.JPEG" />
+    <title>Sleepy Bear - Contact Registration</title>
+    <style>
+        body {
+            background-color: rgb(19, 17, 17);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .form-container {
+            text-align: center;
+            color: white;
+            background-color: #292929;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            width: 300px;
+        }
+        .input-field {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 22px);
+            font-size: 16px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            color: white;
+            background-color: #1db954;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #1ed760;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 id="form-title">Contact Registration</h1>
+        <form id="contactForm">
+            <input type="text" id="contact1" class="input-field" placeholder="Contact Name 1" required>
+            <input type="text" id="contact2" class="input-field" placeholder="Contact Name 2" required>
+            <input type="text" id="contact3" class="input-field" placeholder="Contact Name 3" required>
+            <button type="submit" class="button">Save</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const formTitle = document.getElementById('form-title');
+            formTitle.textContent = `Contact Registration - ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Simulating contact saving
+                alert('Contacts saved successfully!');
+                window.location.href = 'buttons.html';
+            });
+        });
+    </script>
+</body>
+</html>

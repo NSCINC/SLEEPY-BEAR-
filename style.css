@@ -1,0 +1,95 @@
+Você já tem um bom estilo definido no seu CSS! Se você quer ajustar seu estilo para uma tela de login, podemos fazer algumas modificações para garantir que o formulário fique bem apresentado e adaptado para essa finalidade. Vou fazer alguns ajustes:
+
+- Reduzir o tamanho do `.login-container` para que fique mais compacto.
+- Ajustar o tamanho do `.logo` para que não ocupe muito espaço.
+- Centralizar o título do aplicativo e os campos do formulário.
+- Ajustar os botões para que ocupem toda a largura disponível na tela de login.
+
+Aqui está o CSS atualizado:
+
+```css
+body {
+  body {
+    background-image: url('background.jpg'); /* Substitua 'background.jpg' pelo caminho da sua imagem de fundo */
+    background-size: cover; /* Redimensiona a imagem para cobrir todo o contêiner */
+    background-position: center; /* Centraliza a imagem de fundo */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    text-align: center;
+    background-color: #292929;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    width: 80%; /* Reduzindo o tamanho do container */
+    max-width: 400px; /* Adicionado para evitar que fique muito largo */
+}
+
+.input-field {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 16px;
+}
+
+.button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    margin: 10px auto; /* Centralizando os botões */
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    color: white;
+    background-color: #1db954;
+    font-weight: bold;
+    width: 100%; /* Ocupando toda a largura disponível */
+    max-width: none; /* Removendo a largura máxima */
+    display: block; /* Alterando para display block para ocupar toda a largura */
+}
+
+.button:hover {
+    background-color: #1ed760;
+}
+
+.app-title {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px; /* Aumentando o tamanho do título */
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    color: white;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.logo {
+    width: 50%; /* Reduzindo o tamanho do logo */
+    max-width: 200px; /* Mantendo o tamanho máximo */
+    margin-bottom: 20px;
+}
+
+/* Adicionado para tornar o design mais responsivo em telas menores */
+@media screen and (max-width: 600px) {
+    .login-container {
+        width: 95%;
+    }
+}
+```
+
+Essas alterações devem ajudar a melhorar a aparência do formulário de login e garantir que ele seja responsivo em telas menores.

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleepy Bear - Registration</title>
+    <style>
+        body {
+            background-color: rgb(19, 17, 17);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-container {
+            text-align: center;
+            color: white;
+        }
+        .input-field {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            background-color: #5cb85c; /* green */
+            color: white;
+        }
+        .button:hover {
+            background-color: #3c763d;
+        }
+        .button-cancel {
+            background-color: #f01717; /* red */
+        }
+        .button-cancel:hover {
+            background-color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Registration - Sleepy Bear</h1>
+        <form id="registerForm" onsubmit="return verifyCode()">
+            <input type="text" id="username" class="input-field" placeholder="Username" required>
+            <br>
+            <input type="email" id="email" class="input-field" placeholder="Email" required>
+            <br>
+            <input type="password" id="password" class="input-field" placeholder="Password" required>
+            <br>
+            <input type="tel" id="phone" class="input-field" placeholder="Phone Number" pattern="[0-9]{10,14}" title="Please enter a valid phone number (between 10 and 14 digits)." required>
+            <br>
+            <button type="button" class="button" onclick="sendCode()">Send Code</button>
+            <div id="verificationSection" style="display: none;">
+                <input type="text" id="verificationCode" class="input-field" placeholder="Verification Code" required>
+                <br>
+                <button type="submit" class="button">Register</button>
+            </div>
+            <button type="button" class="button button-cancel" onclick="cancel()">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to send the verification code via WhatsApp using the Twilio API
+        function sendCode() {
+            // Generate a random verification code
+            var verificationCode = Math.floor(1000 + Math.random() * 9000);
+            var phoneNumber = document.getElementById("phone").value;
+
+            // Display the generated code in the console for testing
+            console.log("Verification Code:", verificationCode);
+
+            // Send the code via WhatsApp using the Twilio API
+            fetch('sendWhatsAppCode.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone: phoneNumber,
+                    code: verificationCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Verification code sent successfully!");
+                    // Display the verification code input section
+                    document.getElementById("verificationSection").style.display = "block";
+                } else {
+                    alert("Error sending the verification code. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error sending the verification code:", error);
+                alert("Error sending the verification code. Please try again.");
+            });
+        }
+
+        // Function to verify the code entered by the user
+        function verifyCode() {
+            var userCode = document.getElementById("verificationCode").value;
+
+            if (userCode.trim() === "") {
+                alert("Please enter the verification code.");
+                return false; // Prevent form submission if the code is empty
+            }
+
+            // If the code is correct, redirect to the code authentication page
+            window.location.href = "auth.html";
+
+            return false; // Prevent form submission
+        }
+
+        // Function to cancel the registration
+        function cancel() {
+            document.getElementById("registerForm").reset();
+            document.getElementById("verificationSection").style.display = "none";
+        }
+    </script>
+</body>
+</html>
