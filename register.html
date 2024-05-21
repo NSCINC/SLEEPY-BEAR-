@@ -74,6 +74,10 @@
         .button-cancel {
             background-color: red;
         }
+
+        .button-cancel:hover {
+            background-color: darkred;
+        }
     </style>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
@@ -126,9 +130,9 @@
         }
 
         function verifyCode() {
-            const userCode = document.getElementById("verificationCode").value;
+            const userCode = document.getElementById("verificationCode").value.trim();
 
-            if (userCode.trim() === "") {
+            if (!userCode) {
                 alert("Please enter the verification code.");
                 return false;
             }
