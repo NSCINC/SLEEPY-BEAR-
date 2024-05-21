@@ -59,9 +59,24 @@
 <body>
     <div class="button-container">
         <h1 class="app-title">Sleepy Bear - Main Menu</h1>
-        <button class="button button-green">Family Registration</button>
-        <button class="button button-yellow">Friends Registration</button>
-        <button class="button button-red">MEDIC Registration</button>
+        <button class="button button-green" onclick="sendNotification('family')">Family Registration</button>
+        <button class="button button-yellow" onclick="sendNotification('friends')">Friends Registration</button>
+        <button class="button button-red" onclick="sendNotification('medic')">MEDIC Registration</button>
     </div>
+
+    <script>
+        function sendNotification(type) {
+            var message = '';
+            if (type === 'family') {
+                message = 'Notification sent to family contacts!';
+            } else if (type === 'friends') {
+                message = 'Notification sent to friends!';
+            } else if (type === 'medic') {
+                message = 'Notification sent to MEDIC!';
+            }
+            // Here you can add the code to actually send the notification
+            alert(message); // For demonstration purposes, showing an alert
+        }
+    </script>
 </body>
 </html>
