@@ -7,12 +7,16 @@
     <style>
         /* Estilos CSS aqui */
     </style>
+    <!-- Adicione a biblioteca reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="register-container">
         <h1>Registration - Sleepy Bear</h1>
         <form id="registerForm" onsubmit="return verifyCode()">
             <!-- Campos do formulário aqui -->
+            <!-- Adicione o campo do CAPTCHA -->
+            <div class="g-recaptcha" data-sitekey="SEU_SITE_KEY"></div>
         </form>
     </div>
 
@@ -73,16 +77,6 @@
             document.getElementById("registerForm").reset();
             document.getElementById("verificationSection").style.display = "none";
         }
-
-        // Função para capturar a senha quando o usuário insere uma senha válida
-        function capturePassword() {
-            var password = document.getElementById("password").value;
-            // Exibir a senha no console para fins de teste
-            console.log("Password entered:", password);
-        }
-
-        // Adiciona um event listener para capturar a senha quando o usuário insere uma senha válida
-        document.getElementById("password").addEventListener("change", capturePassword);
     </script>
 </body>
 </html>
