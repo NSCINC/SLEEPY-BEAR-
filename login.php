@@ -29,7 +29,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="email" id="email" name="email" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        <input type="submit" value="Login">
+        <input type="submit" value="Login"><?php
+// Database connection
+$db = new SQLite3('users.db');
+
+// Get POST data
+$data = json_decode(file_get_contents('php://input'), true);
+$email = $data['email'];
+$code = $data['code'];
+
+// Check the verification code
+$stmt = $db->prepare("SELECT * FROM users WHERE email = :email AND code = :code");
+$stmt->bindValue(':email', $email, SQLITE3_TEXT);
+$stmt->bindValue(':code', $code, SQLITE3_INTEGER);
+$result = $stmt->execute()->fetchArray();
+
+if ($result) {
+    $response = ['success' => true];
+} else {
+    $response = ['success' => false];
+}
+
+echo json_encode($response);
+?>
+
     </form>
 <?php } ?>
 </body>
