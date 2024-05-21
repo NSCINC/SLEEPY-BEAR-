@@ -9,17 +9,29 @@ if (!isset($data['code'], $data['email'], $data['password'])) {
     exit;
 }
 
-// Simula o envio do código via WhatsApp (aqui você pode integrar com uma API de envio real)
 $code = $data['code'];
 $email = $data['email'];
 $password = $data['password'];
 
-// Salva os dados em um arquivo
-$file = 'data.txt';
-$currentData = file_get_contents($file);
-$currentData .= "Email: $email, Password: $password, Code: $code\n";
-file_put_contents($file, $currentData);
+// Conexão ao banco de dados SQLite
+$db = new SQLite3('users.db');
 
-// Retorna uma resposta de sucesso
+// Verifica se o email já está registrado
+$stmt = $db->prepare("SELECT * FROM users WHERE email = :email");
+$stmt->bindValue(':email', $email, SQLITE3_TEXT);
+$result = $stmt->execute()->fetchArray();
+
+if ($result) {
+    echo json_encode(['success' => false, 'message' => 'Email already registered']);
+    exit;
+}
+
+// Insere o novo usuário no banco de dados com o código de verificação
+$stmt = $db->prepare("INSERT INTO users (email, password, code) VALUES (:email, :password, :code)");
+$stmt->bindValue(':email', $email, SQLITE3_TEXT);
+$stmt->bindValue(':password', $password, SQLITE3_TEXT);
+$stmt->bindValue(':code', $code, SQLITE3_INTEGER);
+$stmt->execute();
+
 echo json_encode(['success' => true]);
 ?>
