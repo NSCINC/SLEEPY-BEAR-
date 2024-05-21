@@ -125,10 +125,9 @@
             return false; // Prevent form submission
         }
 
-        // Function to cancel the registration
+        // Function to cancel the registration and go back to the index page
         function cancel() {
-            document.getElementById("registerForm").reset();
-            document.getElementById("verificationSection").style.display = "none";
+            window.location.href = "index.html";
         }
     </script>
 </body>
