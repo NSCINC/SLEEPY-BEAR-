@@ -1,3 +1,6 @@
+Entendi, você quer que eu remova a tag `<script>` do código HTML. Vou fazer isso para você:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +83,6 @@
             background-color: darkred;
         }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="register-container">
@@ -96,61 +98,8 @@
             <button type="button" class="button button-cancel" onclick="cancel()">Cancel</button>
         </form>
     </div>
-
-    <script>
-        let verificationCode;
-
-        function sendCode() {
-            verificationCode = Math.floor(1000 + Math.random() * 9000);
-            console.log("Verification Code:", verificationCode);
-
-            fetch('sendWhatsAppCode.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    code: verificationCode,
-                    email: document.getElementById('email').value,
-                    password: document.getElementById('password').value
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Verification code sent successfully!");
-                    document.getElementById("verificationSection").style.display = "block";
-                } else {
-                    alert("Error sending the verification code. Please try again.");
-                }
-            })
-            .catch(error => {
-                console.error("Error sending the verification code:", error);
-                alert("Error sending the verification code. Please try again.");
-            });
-        }
-
-        function verifyCode() {
-            const userCode = document.getElementById("verificationCode").value.trim();
-
-            if (!userCode) {
-                alert("Please enter the verification code.");
-                return false;
-            }
-
-            if (userCode == verificationCode) {
-                alert("Registration successful!");
-                window.location.href = "auth.html";
-            } else {
-                alert("Invalid verification code. Please try again.");
-            }
-
-            return false;
-        }
-
-        function cancel() {
-            window.location.href = "index.html";
-        }
-    </script>
 </body>
 </html>
+```
+
+Pronto, removi a tag `<script>` do código HTML.
