@@ -71,33 +71,12 @@
             max-width: 200px;
             margin-bottom: 20px;
         }
-        .google-login-button {
-            margin-top: 20px;
-            display: inline-block;
-        }
-        /* Remover texto do botão Google Sign-In */
-        .google-login-button .abcRioButtonContents:before {
-            display: none;
-        }
-        /* Adicionar novo texto ao botão Google Sign-In */
-        .google-login-button .abcRioButtonContents {
-            font-size: 16px;
-            padding-left: 8px; /* Espaçamento para o ícone do Google */
-        }
-        .google-button-text {
-            font-size: 16px;
-            padding-left: 8px; /* Espaçamento para o ícone do Google */
-            font-weight: bold;
-            text-transform: uppercase;
-        }
         @media screen and (max-width: 600px) {
             .login-container {
                 width: 95%;
             }
         }
     </style>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
 </head>
 <body>
     <div class="login-container">
@@ -115,11 +94,6 @@
             <button type="button" class="button" onclick="login()">Login</button>
             <button type="button" class="button" onclick="window.location.href='registro.html'">Register</button>
         </form>
-        
-        <!-- Google Sign-In Button -->
-        <div class="g-signin2 google-login-button" data-onsuccess="onSignIn" data-theme="dark">
-            <span class="google-button-text">Sign in </span>
-        </div>
     </div>
 
     <script>
@@ -132,23 +106,6 @@
             } else {
                 alert("Incorrect username or password. Please try again.");
             }
-        }
-
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId());
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
-
-            window.location.href = 'botoes.html';
-        }
-
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
         }
     </script>
 </body>
