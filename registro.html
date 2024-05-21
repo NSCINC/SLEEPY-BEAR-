@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            background-color: #1f1f1f;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,15 +17,15 @@
         }
 
         .register-container {
-            background-color: #fff;
+            background-color: #333;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
             margin-top: 0;
-            color: #333;
+            color: #fff;
             text-align: center;
         }
 
@@ -39,9 +39,11 @@
             width: 300px;
             padding: 10px;
             margin: 5px;
-            border: 1px solid #ccc;
+            border: none;
             border-radius: 5px;
             font-size: 16px;
+            background-color: #444;
+            color: #fff;
             box-sizing: border-box;
         }
 
@@ -66,7 +68,7 @@
         }
 
         .button-cancel {
-            background-color: #ccc;
+            background-color: #777;
         }
 
         #verificationSection {
@@ -84,13 +86,7 @@
             <!-- Adicione o campo do CAPTCHA -->
             <div class="g-recaptcha" data-sitekey="SEU_SITE_KEY"></div>
             <br>
-            <input type="text" id="username" class="input-field" placeholder="Username" required>
-            <br>
-            <input type="email" id="email" class="input-field" placeholder="Email" required>
-            <br>
             <input type="password" id="password" class="input-field" placeholder="Password" required>
-            <br>
-            <input type="tel" id="phone" class="input-field" placeholder="Phone Number" pattern="[0-9]{10,14}" title="Please enter a valid phone number (between 10 and 14 digits)." required>
             <br>
             <button type="button" class="button" onclick="sendCode()">Send Code</button>
             <div id="verificationSection">
@@ -107,7 +103,6 @@
         function sendCode() {
             // Gere um código de verificação aleatório
             var verificationCode = Math.floor(1000 + Math.random() * 9000);
-            var phoneNumber = document.getElementById("phone").value;
 
             // Exiba o código gerado no console para teste
             console.log("Verification Code:", verificationCode);
@@ -119,7 +114,6 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    phone: phoneNumber,
                     code: verificationCode
                 })
             })
